@@ -1,3 +1,4 @@
+/* Estilos generales */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -18,16 +19,17 @@ body {
     font-family: 'Prompt', sans-serif;
 }
 
+/* Estilos de contenedor principal */
 .container {
     width: 400px;
     height: 600px;
-    margin: 0;
+    margin: 0 auto;
+    padding: 20px;
 }
 
-/* perfil*/
-
+/* Perfil */
 .perfil h1 {
-    color: var(--white)
+    color: var(--white);
 }
 
 .perfil span {
@@ -40,8 +42,7 @@ body {
     padding: 50px 0 5px 0;
 }
 
-/*Agregar tarea */
-
+/* Agregar tarea */
 .agregar-tarea {
     background-color: var(--white);
     border-radius: 15px;
@@ -49,7 +50,7 @@ body {
     display: flex;
     align-items: center;
     padding: 10px;
-    gap: 70px
+    gap: 10px; /* Ajustado para un espacio razonable */
 }
 
 .agregar-tarea input {
@@ -58,10 +59,56 @@ body {
     border-radius: 8px;
     border: none;
     background-color: var(--white);
+    padding: 0 10px; /* Espacio interno */
 }
 
 .agregar-tarea i {
-    font-size: 50px;
+    font-size: 30px;
     color: var(--purple);
+    cursor: pointer;
+}
 
+/* Nueva pantalla de inicio de sesión */
+.login-container {
+    width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    text-align: center;
+    background-color: var(--white);
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: 'Prompt', sans-serif;
+}
+
+.login-container h1 {
+    color: var(--purple);
+    margin-bottom: 20px;
+}
+
+.login-container p {
+    color: var(--blue-dark);
+}
+
+.login-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid var(--blue-light);
+}
+
+.login-container button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--purple);
+    color: var(--white);
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.login-container button:hover {
+    background-color: var(--blue-dark);
 }

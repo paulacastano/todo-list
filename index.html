@@ -1,31 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TO DO LIST</title>
+    <title>TO DO LIST - Inicio de Sesión</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-
 </head>
-
 <body>
-    <div class="container">
+    <!-- Pantalla de inicio de sesión -->
+    <div class="login-container">
+        <h1>Bienvenido a Tu Lista de Tareas</h1>
+        <p>Inicia sesión para continuar</p>
+        <form id="login-form">
+            <input type="text" id="username" placeholder="Usuario" required>
+            <input type="password" id="password" placeholder="Contraseña" required>
+            <button type="submit">Iniciar Sesión</button>
+        </form>
+    </div>
+
+    <!-- Pantalla de lista de tareas (oculta inicialmente) -->
+    <div class="container" id="task-container" style="display: none;">
         <div class="perfil">
-            <div id="fecha">Sabado 9 de noviembre</div>
+            <div id="fecha">Sábado 9 de noviembre</div>
             <h1>Hola, Paula Castaño</h1>
             <span>Vamos a cumplir tus metas</span>
         </div>
 
-        <div class="agregar tarea">
-            <input type="text" id="input" placeholder="agregar una tarea">
+        <div class="agregar-tarea">
+            <input type="text" id="input" placeholder="Agregar una tarea">
             <i id="boton-enter" class="fas fa-plus-circle"></i>
         </div>
-
 
         <div class="seccion tarea">
             <h3>Estas son tus tareas pendientes</h3>
@@ -38,7 +46,7 @@
             </ul>
         </div>
     </div>
-    <script src="scrip.js"></script>
-</body>
 
+    <script src="script.js"></script>
+</body>
 </html>
