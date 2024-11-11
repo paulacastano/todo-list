@@ -1,39 +1,38 @@
 // Iniciar sesión y cambiar pantalla
 document.getElementById("login-form").addEventListener("submit", function(event) {
-    event.preventDefault(); // Evitar el envío del formulario
-    document.querySelector(".login-container").style.display = "none"; // Ocultar la pantalla de login
-    document.getElementById("task-container").style.display = "block"; // Mostrar la pantalla de tareas
+    event.preventDefault();
+    document.querySelector(".login-container").style.display = "none";
+    document.getElementById("task-container").style.display = "block";
 });
 
-// Función para agregar una tarea
+// Agregar tarea al hacer clic en el botón de agregar
 document.getElementById("boton-enter").addEventListener("click", function() {
-    const inputElement = document.getElementById("input");
-    const taskText = inputElement.value.trim();
+    const taskTitle = document.getElementById("input").value.trim();
+    const taskTime = document.getElementById("activity-time").value;
+    const taskPriority = document.getElementById("activity-priority").value;
 
-    if (taskText) {
-        const taskTime = prompt("¿A qué hora deseas hacer esta tarea? (Formato: HH:MM)", "12:00");
-
-        // Crear un nuevo elemento de lista para la tarea
+    if (taskTitle && taskTime) {
         const newTask = document.createElement("li");
-
-        // Agregar íconos, hora y texto de la tarea
         newTask.innerHTML = `
             <i class="far fa-circle co" data="realizado"></i>
-            <p class="tex">${taskText} <span class="hora">${taskTime}</span></p>
+            <p class="tex">${taskTitle} - <span class="task-time">${taskTime}</span></p>
             <i class="fas fa-trash de" data="eliminado"></i>
         `;
 
-        // Agregar la funcionalidad para borrar la tarea
-        newTask.querySelector(".de").addEventListener("click", function() {
-            newTask.remove();
-        });
+        // Agregar la tarea a la lista de acuerdo a la prioridad
+        document.getElementById(`lista-${taskPriority}`).querySelector("ul").appendChild(newTask);
 
-        // Agregar la tarea a la lista de tareas
-        document.getElementById("lista").appendChild(newTask);
-
-        // Limpiar el campo de entrada
-        inputElement.value = "";
+        // Limpiar los campos después de agregar la tarea
+        document.getElementById("input").value = "";
+        document.getElementById("activity-time").value = "";
     } else {
-        alert("Por favor, escribe una tarea para agregarla.");
+        alert("Por favor, escribe un título y selecciona una hora para la actividad.");
+    }
+});
+
+// Borrar tarea al hacer clic en el icono de la papelera
+document.addEventListener("click", function(event) {
+    if (event.target.classList.contains("de")) {
+        event.target.parentElement.remove();
     }
 });

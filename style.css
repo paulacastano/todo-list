@@ -123,3 +123,40 @@ body {
     width: 100px; /* Ajusta este tamaño según lo que necesites */
     height: auto; /* Mantiene la relación de aspecto */
 }
+
+/* Tamaño del logo */
+#app-logo {
+    width: 80px;
+    height: auto;
+}
+
+/* Estilos para las secciones de prioridad */
+.seccion {
+    margin: 15px 0;
+}
+.seccion h3 {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Contenedor de las secciones de tareas */
+.tareas-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.seccion.tarea {
+    width: 20%;
+}
+
+.seccion.tarea ul {
+    list-style-type: none;
+    padding: 0;
+}
+
