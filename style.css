@@ -112,3 +112,14 @@ body {
 .login-container button:hover {
     background-color: var(--blue-dark);
 }
+
+.hora {
+    font-size: 0.9em;
+    color: #888;
+    margin-left: 8px;
+}
+
+#app-logo {
+    width: 100px; /* Ajusta este tamaño según lo que necesites */
+    height: auto; /* Mantiene la relación de aspecto */
+}
