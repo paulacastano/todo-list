@@ -22,36 +22,13 @@ body {
     align-items: center;
     justify-content: flex-start;
     margin: 0;
-    overflow-x: hidden; 
-}
-
-/* Header - Logo y nombre de la aplicación */
-header {
-    width: 100%;
-    max-width: 1000px;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    background: transparent; 
-    box-shadow: none; 
-}
-
-#app-logo {
-    width: 80px;
-    height: auto;
-}
-
-header h1 {
-    color: var(--white); 
-    font-size: 1.5em;
+    overflow-x: hidden;
 }
 
 /* Estilos de contenedor principal */
 .container {
     width: 100%;
-    max-width: 1000px; 
+    max-width: 1000px;
     height: auto;
     margin: 20px auto;
     padding: 20px;
@@ -75,29 +52,36 @@ header h1 {
     height: 70px;
     display: flex;
     align-items: center;
-    padding: 10px;
-    gap: 10px;
+    padding: 10px 15px;
+    gap: 15px;
 }
 
 .agregar-tarea input {
-    width: 100%;
-    height: 100%;
+    flex: 1;
     border-radius: 8px;
     border: none;
     background-color: var(--white);
-    padding: 0 10px;
+    padding: 10px;
 }
 
 .agregar-tarea i {
     font-size: 30px;
     color: var(--purple);
     cursor: pointer;
+    padding: 8px border-radius 50%;
+    transition: background-color 0.2;
+
 }
+
+.agregar-tarea i:hover {
+    background-color: var(--blue-light);
+}
+
 
 /* Nueva pantalla de inicio de sesión */
 .login-container {
     width: 100%;
-    max-width: 400px; 
+    max-width: 400px;
     margin: 100px auto;
     padding: 20px;
     text-align: center;
@@ -130,6 +114,7 @@ header h1 {
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
+    transition: background-color 0.2s;
 }
 
 .login-container button:hover {
@@ -137,13 +122,14 @@ header h1 {
 }
 
 .hora {
-    font-size: 0.9em; 
-    color: #888; 
-    margin-left: 8px; 
-    font-family: 'Arial', sans-serif; 
-    text-align: left; 
-    white-space: nowrap; 
+    font-size: 0.9em;
+    color: #888;
+    margin-left: 8px;
+    font-family: 'Arial', sans-serif;
+    text-align: left;
+    white-space: nowrap;
 }
+
 /* Estilos para las secciones de prioridad */
 .seccion {
     margin: 15px 0;
@@ -164,7 +150,7 @@ ul {
 .tareas-container {
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
     gap: 10px;
     margin-top: 20px;
 }
@@ -172,8 +158,8 @@ ul {
 /* Estilos de cada cuadro de tarea */
 .seccion.tarea {
     width: 100%;
-    min-width: 240px; 
-    max-width: 300px; 
+    min-width: 240px;
+    max-width: 300px;
     padding: 15px;
     background-color: var(--white);
     border-radius: 10px;
@@ -205,23 +191,27 @@ ul {
     align-items: center;
 }
 
-/* Iconos dentro de la tarea */
 .lista-tareas li i {
-    cursor: pointer;
+    font-size: 18px cursor pointer;
+    transition: color 0.2s;
+}
+
+.lista-tareas li i:hover {
+    color: var(--purple);
 }
 
 /* Contenedor de categorías */
 .categorias {
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
     gap: 10px;
     width: 100%;
-    max-width: 1000px; 
+    max-width: 1000px;
     padding: 20px 0;
     margin-top: 20px;
 }
 
-.categorias > div {
+.categorias>div {
     width: 100%;
     max-width: 250px;
     background-color: var(--white);
