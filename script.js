@@ -5,28 +5,30 @@ document.getElementById("login-form").addEventListener("submit", function(event)
     document.getElementById("task-container").style.display = "block";
 });
 
-// Agregar tarea al hacer clic en el botón de agregar
+// Botón de agregar tarea
 document.getElementById("boton-enter").addEventListener("click", function() {
     const taskTitle = document.getElementById("input").value.trim();
-    const taskTime = document.getElementById("activity-time").value;
     const taskPriority = document.getElementById("activity-priority").value;
+    const taskTime = document.getElementById("activity-time").value;
 
-    if (taskTitle && taskTime) {
+    if (taskTitle) {
         const newTask = document.createElement("li");
         newTask.innerHTML = `
             <i class="far fa-circle co" data="realizado"></i>
-            <p class="tex">${taskTitle} - <span class="task-time">${taskTime}</span></p>
+            <p class="tex">${taskTitle}</p>
+            <span class="task-time">${taskTime}</span>
             <i class="fas fa-trash de" data="eliminado"></i>
         `;
 
         // Agregar la tarea a la lista de acuerdo a la prioridad
-        document.getElementById(`lista-${taskPriority}`).querySelector("ul").appendChild(newTask);
+        document.getElementById(`lista-${taskPriority}`).appendChild(newTask);
 
-        // Limpiar los campos después de agregar la tarea
+        // Limpiar los campos de entrada
         document.getElementById("input").value = "";
         document.getElementById("activity-time").value = "";
+        document.getElementById("activity-priority").value = "normal";
     } else {
-        alert("Por favor, escribe un título y selecciona una hora para la actividad.");
+        alert("Por favor, escribe un título para la actividad.");
     }
 });
 
@@ -36,3 +38,4 @@ document.addEventListener("click", function(event) {
         event.target.parentElement.remove();
     }
 });
+

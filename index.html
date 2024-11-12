@@ -34,8 +34,7 @@
             <h1>Hola, Paula Castaño</h1>
             <span>Vamos a cumplir tus metas</span>
         </div>
-
-        <!-- Campo de entrada y selector de prioridad -->
+    
         <div class="agregar-tarea">
             <input type="text" id="input" placeholder="Agregar una tarea">
             <input type="time" id="activity-time">
@@ -47,27 +46,30 @@
             </select>
             <i id="boton-enter" class="fas fa-plus-circle"></i>
         </div>
-
-        <!-- Secciones de tareas por prioridad en fila horizontal -->
-        <div class="tareas-container">
-            <div class="seccion tarea" id="lista-critico">
+    
+        <!-- Secciones de tareas por prioridad en línea horizontal -->
+        <div class="categorias">
+            <div class="seccion tarea" id="critico">
                 <h3>Crítico</h3>
-                <ul></ul>
+                <ul id="lista-critico" class="lista-tareas"></ul>
             </div>
-            <div class="seccion tarea" id="lista-urgente">
+            <div class="seccion tarea" id="urgente">
                 <h3>Urgente</h3>
-                <ul></ul>
+                <ul id="lista-urgente" class="lista-tareas"></ul>
             </div>
-            <div class="seccion tarea" id="lista-normal">
+            <div class="seccion tarea" id="normal">
                 <h3>Normal</h3>
-                <ul></ul>
+                <ul id="lista-normal" class="lista-tareas"></ul>
             </div>
-            <div class="seccion tarea" id="lista-baja">
+            <div class="seccion tarea" id="baja">
                 <h3>Baja</h3>
-                <ul></ul>
+                <ul id="lista-baja" class="lista-tareas"></ul>
             </div>
         </div>
+        
     </main>
+    
+    
 
     <script src="script.js"></script>
 </body>
