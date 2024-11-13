@@ -1,12 +1,17 @@
 // Iniciar sesión y cambiar pantalla
-document.getElementById("login-form").addEventListener("submit", function(event) {
+document.getElementById("login-form").addEventListener("submit", function (event) {
     event.preventDefault();
     document.querySelector(".login-container").style.display = "none";
     document.getElementById("task-container").style.display = "block";
 });
 
 // Botón de agregar tarea
-document.getElementById("boton-enter").addEventListener("click", function() {
+document.getElementById("boton-enter").addEventListener("click", function () {
+    agregarTarea();
+});
+
+//Funcion para agregar tarea
+function agregarTarea() {
     const taskTitle = document.getElementById("input").value.trim();
     const taskPriority = document.getElementById("activity-priority").value;
     const taskTime = document.getElementById("activity-time").value;
@@ -30,12 +35,32 @@ document.getElementById("boton-enter").addEventListener("click", function() {
     } else {
         alert("Por favor, escribe un título para la actividad.");
     }
-});
+};
 
-// Borrar tarea al hacer clic en el icono de la papelera
-document.addEventListener("click", function(event) {
+// Manejar eventos de la lista de tareas
+document.addEventListener("click", function (event) {
+    // Marcar tarea como completada
+    if (event.target.classList.contains("co")) {
+        completarTarea(event.target);
+    }
+    // Eliminar tarea
     if (event.target.classList.contains("de")) {
-        event.target.parentElement.remove();
+        eliminarTarea(event.target);
     }
 });
+
+// Función para completar una tarea
+function completarTarea(element) {
+    const tarea = element.parentElement;
+    tarea.querySelector(".co").classList.replace("fa-circle", "fa-check-circle");
+    tarea.classList.add("tarea-completada");
+
+    // Mover la tarea a la lista de tareas completadas
+    document.getElementById("lista-completadas").appendChild(tarea);
+}
+
+// Función para eliminar una tarea
+function eliminarTarea(element) {
+    element.parentElement.remove();
+}
 

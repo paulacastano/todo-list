@@ -10,6 +10,7 @@
     --blue-light: #7cc5f9;
     --blue-mid: #2a73c2;
     --blue-dark: #2c7b90;
+    --purple: #8a2be2;
 }
 
 body {
@@ -33,20 +34,9 @@ body {
     padding: 20px;
 }
 
-/* Perfil */
-.perfil {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    width: 100%;
-    padding: 20px 0;
-}
-
 #fecha {
     color: var(--white);
-    font-size: 1.2em;
+    font-size: 2em;
     margin-bottom: 10px;
 }
 
@@ -108,18 +98,55 @@ span {
     color: var(--blue-light)
 }
 
-@media (max-width: 768px) {
-    .agregar-tarea {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
+/*lista de tareas */
 
-    .agregar-tarea input[type="text"],
-    .agregar-tarea input[type="time"],
-    .agregar-tarea select {
-        width: 100%;
-    }
+.lista-tareas,
+.tareas-completadas {
+    background-color: var(--white);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    width: 100%;
+    max-width: 300px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.lista-tareas h3,
+.tareas-completadas h3 {
+    color: var(--blue-dark);
+    font-size: 1.5em;
+}
+
+/* Contenedor de categorías */
+.categorias {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    max-width: 1000px;
+    padding: 20px 0;
+    margin-top: 20px;
+}
+
+/* Contenedor de tareas completadas */
+.tareas-completadas-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    width: 100%;
+    max-width: 1000px;
+}
+
+/* Sección de tareas completadas */
+.tareas-completadas {
+    width: 100%;
+    max-width: 500px;
+    padding: 15px;
+    background-color: var(--white);
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    margin: 20px 0;
 }
 
 /* Nueva pantalla de inicio de sesión */
@@ -231,8 +258,35 @@ ul {
     padding: 5px 10px;
     margin: 5px 0;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    align-items: center;
+}
+
+.lista-tareas li .co,
+.lista-tareas li .de {
+    font-size: 18px;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.lista-tareas li .tex {
+    flex: 1;
+    text-align: center;
+    margin: 0;
+}
+
+.task-time {
+    font-size: 0.8em;
+    color: #ffffff;
+    white-space: nowrap;
+}
+
+/* Ajustes adicionales para cada sección */
+.seccion.tarea {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px
 }
 
 .lista-tareas li i {
@@ -262,4 +316,15 @@ ul {
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Perfil */
+.perfil {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    padding: 20px 0;
 }
