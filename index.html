@@ -27,19 +27,50 @@
         <div class="perfil">
             <div id="fecha">Sábado 9 de noviembre</div>
             <h1>Hola! Vamos a cumplir tus metas</h1>
+            <button id="tutorial-btn" class="tutorial-button">Ver Tutorial</button>
+
+            <!-- Ventana Modal para el tutorial -->
+            <div id="tutorial-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Tutorial de Inicio</h2>
+                    <p>Aprende a utilizar las funcionalidades principales de nuestra app.</p>
+                    <iframe id="tutorial-video" width="100%" height="315" src="URL_DEL_VIDEO" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+
             <span>¿Estás listo para escribir tus tareas?</span>
         </div>
 
-        <!--Seccion para crear tareas-->
+        <!-- Sección para crear tareas -->
         <div class="crear-tarea">
             <input type="text" id="input" placeholder="Agregar una tarea">
             <input type="time" id="activity-time">
+            <input type="text" id="task-description" placeholder="Descripción de la tarea">
             <select id="activity-priority">
                 <option value="critico">Crítico</option>
                 <option value="urgente">Urgente</option>
                 <option value="normal">Normal</option>
                 <option value="baja">Baja</option>
             </select>
+            <label for="fecha-creacion">Fecha de Creación:</label>
+            <input type="datetime-local" id="fecha-creacion" name="fecha-creacion">
+
+            <label for="fecha-vencimiento">Fecha de Vencimiento:</label>
+            <input type="datetime-local" id="fecha-vencimiento" name="fecha-vencimiento">
+
+            <label for="recurrencia">Frecuencia de Recurrencia:</label>
+            <select id="recurrencia" name="recurrencia">
+                <option value="ninguna">Ninguna</option>
+                <option value="diaria">Diaria</option>
+                <option value="semanal">Semanal</option>
+                <option value="mensual">Mensual</option>
+            </select>
+
+            <button id="guardarTarea">Guardar Tarea</button>
+
             <i id="boton-enter" class="fas fa-plus-circle"></i>
         </div>
 
@@ -63,17 +94,44 @@
             </div>
         </div>
 
-        <!--Seccion de tareas completadas-->
+        <div id="tareas-container">
+            <!-- Las tareas generadas se agregarán aquí dinámicamente -->
+        </div>
+
+        <!-- Sección de tareas completadas -->
         <div class="tareas-completadas">
             <h3>Tareas completadas</h3>
             <ul id="lista-completadas"></ul>
         </div>
-        </div>
-
     </main>
 
-
-
+   <!-- Modal de Edición de tarea -->
+<div id="modal-editar-tarea" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarModalEditarTarea()">&times;</span>
+      <h2>Editar Tarea</h2>
+      <form>
+        <label for="titulo-editar">Título:</label>
+        <input type="text" id="titulo-editar" required>
+        <label for="descripcion-editar">Descripción:</label>
+        <input type="text" id="descripcion-editar">
+        <span class="prioridad">${taskPriority}</span>
+        <select id="prioridad-editar">
+            <option value="critico">Crítico</option>
+            <option value="urgente">Urgente</option>
+            <option value="normal">Normal</option>
+            <option value="bajo">Bajo</option>
+        </select>
+        <label for="estado-editar">Estado:</label>
+        <select id="estado-editar">
+          <option value="pendiente">Pendiente</option>
+          <option value="completada">Completada</option>
+        </select>
+        <button type="button" onclick="guardarCambiosTarea()">Guardar Cambios</button>
+      </form>
+    </div>
+  </div>
+  
     <script src="script.js"></script>
 </body>
 
