@@ -1,50 +1,86 @@
-// Iniciar sesión y cambiar pantalla
-document.getElementById("login-form").addEventListener("submit", function (event) {
-    event.preventDefault();
-    document.querySelector(".login-container").style.display = "none";
-    document.getElementById("task-container").style.display = "block";
-});
-
 // Botón de agregar tarea
-document.getElementById("boton-enter").addEventListener("click", function () {
+document.getElementById("save-task").addEventListener("click", function () {
     agregarTarea();
 });
 
+const tareasActuales = localStorage.getItem('tareas') ? JSON.parse(localStorage.getItem('tareas')) : []
+
+let tareasGuardadas = []
+
+/**
+ * Esta funcion se encarga de establecer el formato de la fecha con la informacion actual
+ *  
+ */
+
+function descriptionFecha(date) {
+    let descripcion = new Date(date).toLocaleDateString('es-CO', { weekday: "long", year: "numeric", month: "short", day: "numeric" })
+    return String(descripcion).charAt(0).toUpperCase() + String(descripcion).slice(1);
+}
+
+document.getElementById('fecha').innerText = descriptionFecha(new Date())
+
 // Función para agregar tarea
 function agregarTarea() {
-    const taskTitle = document.getElementById("input").value.trim();
-    const taskTime = document.getElementById("activity-time").value.trim();
-    const taskDescription = document.getElementById("task-description").value.trim();
+    const taskTitle = document.getElementById("activity-name").value.trim();
+    const taskDescription = document.getElementById("activity-description").value.trim();
     const taskPriority = document.getElementById("activity-priority").value;
 
+    // Obtener valores del formulario
+    const fechaCreacion = document.getElementById("fecha-creacion").value;
+    const fechaVencimiento = document.getElementById("fecha-vencimiento").value;
+
+    // Crear la tarea
+    const tarea = {
+        id: Date.now(), // Usamos el timestamp como id único
+        titulo: taskTitle,
+        descripcion: taskDescription, // Puedes obtener esto de otro campo si es necesario
+        fechaCreacion: fechaCreacion,
+        estado: "pendiente",
+        fechaVencimiento: fechaVencimiento,
+        prioridad: taskPriority
+    };
+
     // Verificar que los campos no estén vacíos
-    if (taskTitle && taskTime) {
-        const taskId = Date.now(); // Generar un ID único
-        const newTask = document.createElement("li");
-        newTask.id = taskId;
-
-        // Insertar tarea en el HTML
-        newTask.innerHTML = `
-            <i class="far fa-circle co" data="realizado"></i>
-            <p class="tex">${taskTitle}</p>
-            <span class="task-time">${taskTime}</span>
-            <span class="descripcion">${taskDescription}</span>
-            <i class="fas fa-trash de" data="eliminado"></i>
-            <button class="edit-btn" onclick="abrirModalEditarTarea('${taskId}')">Editar</button>
-        `;
-
-        // Agregar la tarea a la lista correspondiente por prioridad
-        const taskList = document.getElementById(`lista-${taskPriority}`);
-        taskList.appendChild(newTask);
+    if (taskTitle) {
+        tareasActuales.push(tarea)
+        localStorage.setItem('tareas', JSON.stringify(tareasActuales))
+        mostrarTarea(tarea)
 
         // Limpiar campos de entrada
-        document.getElementById("input").value = "";
-        document.getElementById("activity-time").value = "";
-        document.getElementById("task-description").value = "";
+        document.getElementById("activity-name").value = "";
+        document.getElementById("activity-description").value = "";
     } else {
         alert("Por favor, escribe un título y una hora para la actividad.");
     }
+
 }
+
+function mostrarTarea(tarea) {
+    const newTask = document.createElement("div");
+    newTask.setAttribute('class', 'card mb-1')
+    newTask.setAttribute('id', tarea.id)
+
+    // Insertar tarea en el HTML
+    newTask.innerHTML = `
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-edit"></i> ${tarea.titulo}</h5>
+                <p class="card-text">${tarea.descripcion}</p>
+            </div>
+            <div class="card-footer bg-transparent fw-bold text-center"> - ${descriptionFecha(tarea.fechaVencimiento)} -</div>
+        `;
+
+    // Agregar la tarea a la columna con el estado correspondiente
+    const taskList = document.getElementById(`section-${tarea.estado}`);
+    taskList.appendChild(newTask);
+}
+
+function cargarTareas(tareas) {
+    tareas.forEach((tarea) => {
+        mostrarTarea(tarea)
+    })
+}
+
+cargarTareas(tareasActuales)
 
 // Manejar eventos de la lista de tareas
 document.addEventListener("click", function (event) {
@@ -79,19 +115,19 @@ const tutorialModal = document.getElementById('tutorial-modal');
 const closeBtn = document.querySelector('.close');
 
 // Función para abrir el modal
-tutorialBtn.onclick = function() {
+tutorialBtn.onclick = function () {
     tutorialModal.style.display = 'block';
 };
 
 // Función para cerrar el modal al hacer clic en el botón de cierre
-closeBtn.onclick = function() {
+closeBtn.onclick = function () {
     tutorialModal.style.display = 'none';
     const video = document.getElementById('tutorial-video');
     video.src = video.src;
 };
 
 // Función para cerrar el modal al hacer clic fuera del contenido
-window.onclick = function(event) {
+window.onclick = function (event) {
     if (event.target == tutorialModal) {
         tutorialModal.style.display = 'none';
         const video = document.getElementById('tutorial-video');
@@ -104,7 +140,7 @@ let tareaEnEdicion = null;
 
 function abrirModalEditarTarea(taskId) {
     const tarea = document.getElementById(taskId);
-    
+
     if (tarea) {
         tareaEnEdicion = {
             id: taskId,
@@ -154,13 +190,13 @@ function guardarCambiosTarea() {
 // Función para actualizar la vista de la tarea después de la edición
 function actualizarVistaTarea(tarea) {
     const tareaElement = document.getElementById(tarea.id);
-    
+
     if (tareaElement) {
         tareaElement.querySelector(".tex").textContent = tarea.titulo;
         tareaElement.querySelector(".descripcion").textContent = tarea.descripcion;
 
         // Actualiza la prioridad visualmente en la vista
-        const prioridadElement = tareaElement.querySelector(".prioridad"); 
+        const prioridadElement = tareaElement.querySelector(".prioridad");
         if (prioridadElement) {
             prioridadElement.textContent = tarea.prioridad;  // Actualiza la prioridad mostrada
         }
@@ -170,8 +206,6 @@ function actualizarVistaTarea(tarea) {
         console.error('No se encontró la tarea en la lista con el id:', tarea.id);
     }
 }
-
-
 
 
 function guardarCambiosTarea() {
@@ -202,7 +236,7 @@ function moverTareaSegunPrioridad(tarea) {
     if (tareaElement) {
         // Obtener la lista correspondiente a la nueva prioridad
         const taskList = document.getElementById(`lista-${tarea.prioridad}`);
-        
+
         // Solo agregar la tarea si no está ya en la lista correcta
         if (!taskList.contains(tareaElement)) {
             taskList.appendChild(tareaElement);
@@ -227,66 +261,6 @@ const tarea = {
     frecuenciaRecurrente: null, // Puede ser 'diaria', 'semanal', 'mensual'
 };
 
-// Función para obtener los valores del formulario y guardar la tarea
-document.getElementById("guardarTarea").addEventListener("click", function() {
-    // Obtener valores del formulario
-    const fechaCreacion = document.getElementById("fecha-creacion").value;
-    const fechaVencimiento = document.getElementById("fecha-vencimiento").value;
-    const recurrencia = document.getElementById("recurrencia").value;
-
-    // Crear la tarea
-    const tarea = {
-        id: Date.now(), // Usamos el timestamp como id único
-        descripcion: "Descripción de la tarea", // Puedes obtener esto de otro campo si es necesario
-        fechaCreacion: new Date(fechaCreacion),
-        fechaVencimiento: new Date(fechaVencimiento),
-        esRecurrente: recurrencia !== "ninguna",
-        frecuenciaRecurrente: recurrencia === "ninguna" ? null : recurrencia
-    };
-
-    // Si la tarea es recurrente, generamos las tareas recurrentes
-    const tareasGuardadas = generacionRecurrente(tarea);
-
-    // Mostrar las tareas generadas (puedes adaptarlo para tu vista)
-    console.log(tareasGuardadas);
-});
-
-// Función para generar las tareas recurrentes
-function generacionRecurrente(tarea) {
-    const tareas = [];
-    let fecha = new Date(tarea.fechaVencimiento);
-
-    if (tarea.esRecurrente) {
-        switch (tarea.frecuenciaRecurrente) {
-            case "diaria":
-                // Generar tareas diarias (por ejemplo, 30 días de recurrencia)
-                for (let i = 1; i <= 30; i++) {
-                    fecha.setDate(fecha.getDate() + 1); // Sumar 1 día
-                    tareas.push(clonarTarea(tarea, fecha));
-                }
-                break;
-            case "semanal":
-                // Generar tareas semanales (por ejemplo, 12 semanas de recurrencia)
-                for (let i = 1; i <= 12; i++) {
-                    fecha.setDate(fecha.getDate() + 7); // Sumar 7 días
-                    tareas.push(clonarTarea(tarea, fecha));
-                }
-                break;
-            case "mensual":
-                // Generar tareas mensuales (por ejemplo, 6 meses de recurrencia)
-                for (let i = 1; i <= 6; i++) {
-                    fecha.setMonth(fecha.getMonth() + 1); // Sumar 1 mes
-                    tareas.push(clonarTarea(tarea, fecha));
-                }
-                break;
-        }
-    } else {
-        tareas.push(tarea); // Si no es recurrente, simplemente guardamos la tarea original
-    }
-
-    return tareas;
-}
-
 // Función para clonar la tarea con una nueva fecha de vencimiento
 function clonarTarea(tarea, nuevaFecha) {
     return {
@@ -294,23 +268,3 @@ function clonarTarea(tarea, nuevaFecha) {
         fechaVencimiento: nuevaFecha // Solo cambiamos la fecha de vencimiento
     };
 }
-
-
-function mostrarTareas(tareas) {
-    const contenedor = document.getElementById("tareas-container");
-    contenedor.innerHTML = ""; // Limpiar el contenedor
-
-    tareas.forEach(tarea => {
-        const tareaElement = document.createElement("div");
-        tareaElement.innerHTML = `
-            <p>Descripción: ${tarea.descripcion}</p>
-            <p>Fecha de Creación: ${tarea.fechaCreacion.toLocaleString()}</p>
-            <p>Fecha de Vencimiento: ${tarea.fechaVencimiento.toLocaleString()}</p>
-            <p>Frecuencia: ${tarea.frecuenciaRecurrente || "Ninguna"}</p>
-        `;
-        contenedor.appendChild(tareaElement);
-    });
-}
-
-// Llamamos a la función para mostrar las tareas después de guardarlas
-mostrarTareas(tareasGuardadas);
