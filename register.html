@@ -17,27 +17,30 @@
 </head>
 
 <body class="full-height">
-    <div class="login-container d-flex justify-content-center pt-4 align-items-center" style="height: 600px;">
+    <div class="d-flex justify-content-center pt-4 align-items-center" style="height: 600px;">
         <div class="d-flex flex-column align-items-center">
             <h1>Bienvenido a tu lista de tareas</h1>
-            <p>Inicia sesión para continuar</p>
-            <form id="login-form">
+            <p>Aca podras crear tu usuario</p>
+            <form id="register-form">
                 <div class="form-floating mb-2">
                     <input class="form-control" type="text" id="username" placeholder="Usuario" required>
                     <label for="activity-name">Username</label>
+                </div>
+                <div class="form-floating mb-2">
+                    <input class="form-control" type="email" id="correo" placeholder="sample@gmail.com" required>
+                    <label for="activity-name">Correo</label>
                 </div>
                 <div class="form-floating mb-2">
                     <input class="form-control" type="password" id="password" placeholder="Contraseña" required>
                     <label for="activity-name">Constraseña</label>
                 </div>
                 <center>
-                    <a class="nav-link active mb-2" aria-current="page" href="./register.html">Registrese</a>
-                    <button class="btn btn-primary" type="submit">Iniciar Sesión</button>
+                    <button class="btn btn-primary" type="submit">Registrarse</button>
                 </center>
             </form>
         </div>
     </div>
-    <script src="./js/login.js"></script>
+    <script src="./js/register.js"></script>
 </body>
 
 </html>

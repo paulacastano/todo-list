@@ -1,4 +1,5 @@
 let tareasActuales = localStorage.getItem('tareas') ? JSON.parse(localStorage.getItem('tareas')) : []
+let tareasEliminadas = localStorage.getItem('eliminadas') ? JSON.parse(localStorage.getItem('eliminadas')) : []
 let formulario = null
 
 let tareasGuardadas = []
@@ -27,7 +28,6 @@ function limpiarModal() {
 // Función para agregar tarea
 function agregarTarea() {
     const esEdicion = formulario != null
-
     const taskTitle = document.getElementById("activity-name").value.trim();
     const taskDescription = document.getElementById("activity-description").value.trim();
     const taskPriority = document.getElementById("activity-priority").value;
@@ -91,10 +91,13 @@ function mostrarTarea(tarea) {
     newTask.setAttribute('class', 'card mb-1')
     newTask.setAttribute('id', tarea.id)
 
+    const botonEditar = tarea.estado != 'terminada'
+        ? `<i onclick="cargarDatos(${tarea.id})" class="fas fa-edit" data-bs-toggle="modal" data-bs-target="#modalCrearTarea"></i>`
+        : `<i onclick="alertaEdicion()" class="fas fa-edit"></i>`
     // Insertar tarea en el HTML
     newTask.innerHTML = `
             <div class="card-body">
-                <h5 class="card-title"><i onclick="cargarDatos(${tarea.id})" class="fas fa-edit" data-bs-toggle="modal" data-bs-target="#modalCrearTarea"></i> ${tarea.titulo}</h5>
+                <h5 class="card-title">${botonEditar} ${tarea.titulo}</h5>
                 <p class="card-text">${tarea.descripcion}</p>
             </div>
             <div class="card-footer bg-transparent fw-bold text-center"> - ${descriptionFecha(tarea.fechaVencimiento)} -</div>
@@ -105,6 +108,29 @@ function mostrarTarea(tarea) {
     taskList.appendChild(newTask);
 }
 
+function mostrarTareaEliminada(tarea) {
+    const newTask = document.createElement("div");
+    newTask.setAttribute('class', 'card mb-1')
+    newTask.setAttribute('id', tarea.id)
+
+    // Insertar tarea en el HTML
+    newTask.innerHTML = `
+            <div class="card-body">
+                <h5 class="card-title"><i onclick="restaurarTarea(${tarea.id})" class="fas fa-refresh"></i> ${tarea.titulo}</h5>
+                <p class="card-text">${tarea.descripcion}</p>
+            </div>
+            <div class="card-footer bg-transparent fw-bold text-center"> - ${descriptionFecha(tarea.fechaVencimiento)} -</div>
+        `;
+
+    // Agregar la tarea a la columna con el estado correspondiente
+    const taskList = document.getElementById(`seccion-eliminadas`);
+    taskList.appendChild(newTask);
+}
+
+function alertaEdicion() {
+    alert('Las tareas marcadas como terminadas no pueden ser editadas')
+}
+
 
 function cargarTareas(tareas) {
     tareas.forEach((tarea) => {
@@ -112,15 +138,37 @@ function cargarTareas(tareas) {
     })
 }
 
+function cargarTareasEliminadas(tareas) {
+    tareas.forEach(tarea => {
+        mostrarTareaEliminada(tarea)
+    })
+}
+
 cargarTareas(tareasActuales)
+cargarTareasEliminadas(tareasEliminadas)
 
 // Función para eliminar una tarea
 function eliminarTarea() {
     if (formulario.id) {
+        tareasEliminadas = [...tareasEliminadas, ...tareasActuales.filter(tarea => (tarea.id == formulario.id))]
         tareasActuales = tareasActuales.filter(tarea => (tarea.id != formulario.id))
         localStorage.setItem('tareas', JSON.stringify(tareasActuales))
+        localStorage.setItem('eliminadas', JSON.stringify(tareasEliminadas))
         limpiarTareas()
         cargarTareas(tareasActuales)
+        cargarTareasEliminadas(tareasEliminadas)
         formulario = null
     }
+}
+
+function restaurarTarea(id) {
+    const [tarea] = tareasEliminadas.filter(tarea => (tarea.id == id))
+    tareasEliminadas = tareasEliminadas.filter(tarea => (tarea.id != id))
+    tareasActuales = [...tareasActuales, tarea]
+    localStorage.setItem('tareas', JSON.stringify(tareasActuales))
+    localStorage.setItem('eliminadas', JSON.stringify(tareasEliminadas))
+    document.getElementById(`seccion-eliminadas`).innerHTML = '';
+    limpiarTareas()
+    cargarTareas(tareasActuales)
+    cargarTareasEliminadas(tareasEliminadas)
 }

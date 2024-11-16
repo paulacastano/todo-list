@@ -30,6 +30,14 @@
             </button>
         </div>
 
+        <!-- Button trigger modal -->
+        <div class="pt-2 mx-2">
+            <button type="button" class="btn btn-danger w-100" data-bs-toggle="modal"
+                data-bs-target="#modalTareasEliminadas">
+                <i class="fas fa-trash"></i> Tareas eliminadas
+            </button>
+        </div>
+
         <!-- Secciones con el estado de las tareas -->
         <div class="row mt-3 mx-1">
             <div class="col-sm-3 mb-3 mb-sm-0 px-1">
@@ -170,12 +178,27 @@
                 </div>
             </div>
         </div>
+
+        <!--- Modal para listar tareas eliminadas-->
+        <div class="modal fade" id="modalTareasEliminadas" tabindex="-1" aria-labelledby="modalTareasEliminadasLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalTareasEliminadasLabel">Tareas eliminadas </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="seccion-eliminadas">
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
-    <script src="./js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+    <script src="./js/script.js"></script>
 </body>
 
 </html>
