@@ -37,8 +37,9 @@
 
         <!-- Button trigger modal -->
         <div class="mx-2">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Launch demo modal
+            <button onclick="limpiarModal()" type="button" class="btn btn-primary w-100" data-bs-toggle="modal"
+                data-bs-target="#modalCrearTarea">
+                <i class="fas fa-plus-circle"></i> Crear tarea
             </button>
         </div>
 
@@ -111,11 +112,12 @@
         </div>
 
         <!-- Modal de creacion de la tarea -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="modalCrearTarea" tabindex="-1" aria-labelledby="modalCrearTareaLabel"
+            aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                        <h1 class="modal-title fs-5" id="modalCrearTareaLabel">Crear / Editar (Tarea) </h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -155,13 +157,13 @@
 
                             <!-- Estado de la tarea -->
                             <div class="form-floating mb-2">
-                                <select id="activity-priority" class="form-select" id="datalistOptions">
+                                <select id="activity-status" class="form-select" id="datalistOptions">
                                     <option value="pendiente">Pendiente</option>
                                     <option value="en-progreso">En progreso</option>
                                     <option value="terminada">Terminada</option>
                                     <option value="aplazada">Aplazada</option>
                                 </select>
-                                <label for="activity-priority" class="form-label">Tipo de urgencia</label>
+                                <label for="activity-status" class="form-label">Estado de la tarea</label>
                             </div>
 
                             <!-- Fecha de vencimiento -->
@@ -173,8 +175,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button id="save-task" type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                            aria-label="Close">Guardar tarea</button>
+                        <button onclick="agregarTarea()" id="save-task" type="button" class="btn btn-primary"
+                            data-bs-dismiss="modal" aria-label="Close">Guardar tarea</button>
                     </div>
                 </div>
             </div>
