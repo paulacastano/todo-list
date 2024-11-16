@@ -26,7 +26,6 @@ function limpiarModal() {
 
 // Función para agregar tarea
 function agregarTarea() {
-    console.log('formulario')
     const esEdicion = formulario != null
 
     const taskTitle = document.getElementById("activity-name").value.trim();
@@ -49,10 +48,8 @@ function agregarTarea() {
 
     // Verificar que los campos no estén vacíos
     if (formulario.titulo) {
-        console.log(esEdicion)
         if (esEdicion) {
             tareasActuales = tareasActuales.map(tarea => {
-                console.log('formulario', formulario)
                 if (tarea.id == formulario.id) {
                     return formulario
                 }
@@ -118,6 +115,12 @@ function cargarTareas(tareas) {
 cargarTareas(tareasActuales)
 
 // Función para eliminar una tarea
-function eliminarTarea(element) {
-    element.parentElement.remove();
+function eliminarTarea() {
+    if (formulario.id) {
+        tareasActuales = tareasActuales.filter(tarea => (tarea.id != formulario.id))
+        localStorage.setItem('tareas', JSON.stringify(tareasActuales))
+        limpiarTareas()
+        cargarTareas(tareasActuales)
+        formulario = null
+    }
 }
